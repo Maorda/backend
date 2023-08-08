@@ -5,6 +5,6 @@ export class UsuarioController {
     @Get('lista')
     lista(){
         console.log("lista")
-        return "lista"
+        return "lista";
     }
 }
