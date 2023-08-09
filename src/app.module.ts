@@ -7,6 +7,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { configLoader } from 'config-loader';
 import { envSchema } from 'env-schema';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ObraModule } from './obra/obra.module';
+import { PresupuestoModule } from './presupuesto/presupuesto.module';
 
 
 @Module({
@@ -27,7 +29,9 @@ import { UsuarioModule } from './usuario/usuario.module';
       }, 
     }),
     //modulos de negocio
-  UsuarioModule,
+    UsuarioModule,
+    ObraModule,
+    PresupuestoModule,
   ],
   //modulos de negocio
   controllers: [AppController],
