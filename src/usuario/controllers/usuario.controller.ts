@@ -29,8 +29,17 @@ export class UsuarioController {
     }
     
     
-    @Post()
+    @Post('creausuario')
     async createUser(@Body() creaUsuarioDto: CreaUsuarioDto): Promise<Usuario> {
+        
+        /*inicio hardcode */
+        const nuevoUsuario:CreaUsuarioDto = {
+            email:"myemail@gmail.com",
+            password:"123"
+        }
+        creaUsuarioDto = nuevoUsuario
+        //fin
+
         return this.usuarioservice.creaUsuario(creaUsuarioDto)
     }
       

@@ -9,6 +9,7 @@ import { envSchema } from 'env-schema';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ObraModule } from './obra/obra.module';
 import { PresupuestoModule } from './presupuesto/presupuesto.module';
+import { ValorizacionModule } from './valorizacion/valorizacion.module';
 
 
 @Module({
@@ -32,6 +33,7 @@ import { PresupuestoModule } from './presupuesto/presupuesto.module';
     UsuarioModule,
     ObraModule,
     PresupuestoModule,
+    ValorizacionModule,
   ],
   //modulos de negocio
   controllers: [AppController],

@@ -14,6 +14,7 @@ export class ObraMongoRepository implements IObraRepository{
         const nuevaObra = new Obra();
         nuevaObra.obraId = randomUUID();
         nuevaObra.usuarioId = creaObraDto.usuarioId;
+        
         nuevaObra.contratista = creaObraDto.contratista;
         nuevaObra.supervisor = creaObraDto.supervisor;
         nuevaObra.residente = creaObraDto.residente;
