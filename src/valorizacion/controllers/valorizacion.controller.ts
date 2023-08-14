@@ -8,69 +8,28 @@ export class ValorizacionController {
     constructor(
         private valorizacion:ValorizacionService
     ){}
-    @Get('listavalorizaciones')
+    
+    @Get('lista')
     async listaValorizaciones():Promise<Valorizacion[]>
     {
         return this.valorizacion.listaValorizaciones()
     }
-    @Post('agregaevidenciafotografica')
-    async evidenciafotografica(@Body() evidenciaFotograficaDto: EvidenciaFotograficaDto):Promise<EvidenciaFotograficaDto>{
-        
-        return this.valorizacion.agregaevidenciafotografica(evidenciaFotograficaDto)
 
+    @Get('buscaPorId')
+    async buscaPorId(obraId:string):Promise<Valorizacion>{
+        return await this.valorizacion.buscaById(obraId)
+    }
+
+    @Post('agregaevfoto')
+    async evidenciafotografica(
+        @Body() evidenciaFotografica: any,
+        
+    ):Promise<EvidenciaFotograficaDto>{
+        return await this.valorizacion.agregaevidenciafotografica(evidenciaFotografica)
     }
 
     @Post('creavalorizacion')
-    async createValorizacion(){
-        const valorizacion:CreateValorizacionDto = {
-            obraId:"eba77b76-dd6e-4fde-bf0b-1444050155b2",
-            periodos:[
-                {
-                    panelFotografico:[
-                        {
-                            descripcionTrabajos:"foto1",
-                            partida:"partida1",
-                            urlFoto:"url1"
-                        },
-                        {
-                            descripcionTrabajos:"foto2",
-                            partida:"partida2",
-                            urlFoto:"url2"
-                        }
-                    ],
-                    periodoMes:"marzo",
-                    periodoRangoEtiquetas:"A1:M11",
-                    periodoSeleccionado:"asd",
-                    sumaCostoDirectoActual:10,
-                    sumaPorcentajeAcumuladoActual:10,
-                    sumaValorizacionActual:20
-                        
-                    
-                },
-                {
-                    panelFotografico:[
-                        {
-                            descripcionTrabajos:"foto3",
-                            partida:"partida3",
-                            urlFoto:"url3"
-                        },
-                        {
-                            descripcionTrabajos:"foto4",
-                            partida:"partida4",
-                            urlFoto:"url4"
-                        }
-                    ],
-                    periodoMes:"abril",
-                    periodoRangoEtiquetas:"A1:M5",
-                    periodoSeleccionado:"asd",
-                    sumaCostoDirectoActual:50,
-                    sumaPorcentajeAcumuladoActual:50,
-                    sumaValorizacionActual:50
-                        
-                    
-                }
-            ]
-        } 
-        return this.valorizacion.creaValorizacion(valorizacion)
+    async createValorizacion(valorizacion:any){ 
+        return await this.valorizacion.creaValorizacion(valorizacion)
     }
 }

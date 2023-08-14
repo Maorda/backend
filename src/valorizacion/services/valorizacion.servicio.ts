@@ -9,21 +9,25 @@ export class ValorizacionService {
     constructor(
         @Inject(IVALORIZACION_REPOSITORY) private ivalorizacionRepository:IValorizacionRepository
     ){}
+
     async creaValorizacion(creaValorizacionDto: CreateValorizacionDto): Promise<Valorizacion> {
         return await  this.ivalorizacionRepository.creaValorizacion(creaValorizacionDto)
     }
+
     async buscaById(obraId:string ): Promise<Valorizacion> {
         return await this.ivalorizacionRepository.buscaById({obraId})
     }
+
     async actualizaValorizacion(obraId:string, actualizaObraDto:ActualizaValorizacionDto): Promise<Valorizacion> {
         return await this.ivalorizacionRepository.actualizaValorizacion({obraId},actualizaObraDto)
     }
+
     async listaValorizaciones(){
         return await this.ivalorizacionRepository.listaValorizaciones({})
     }
-    async agregaevidenciafotografica(evidenciaFotograficaDto:EvidenciaFotograficaDto):Promise<EvidenciaFotograficaDto>{
-        return await this.ivalorizacionRepository.agregaevidenciafotografica(evidenciaFotograficaDto)
 
+    async agregaevidenciafotografica(evidenciaFotografica:any):Promise<EvidenciaFotograficaDto>{
+        return await this.ivalorizacionRepository.agregaevidenciafotografica(evidenciaFotografica)
     }
 }
 

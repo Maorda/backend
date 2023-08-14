@@ -1,11 +1,11 @@
 import { InjectModel } from "@nestjs/mongoose";
 
-import { EvidenciaFotografica, Valorizacion } from "../entities/valorizacion.entity";
+import { Valorizacion } from "../entities/valorizacion.entity";
 import { IValorizacionRepository } from "./valorizacion.interface";
 import { randomUUID } from 'node:crypto';
 
 import { FilterQuery, UpdateQuery } from "mongoose";
-import { CreateValorizacionDto } from "../dtos/crud.valorizacion.dto";
+import { CreateValorizacionDto, EvidenciaFotograficaDto } from "../dtos/crud.valorizacion.dto";
 import { ValorizacionModel } from "../schemas/valorizacion.schema";
 
 export class ValorizacionMongoRepository implements IValorizacionRepository{
@@ -50,36 +50,45 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
     listaValorizaciones(entityFilterQuery: FilterQuery<Valorizacion>): Promise<Valorizacion[]> {
         return this.valorizacionModel.find(entityFilterQuery).exec()
     }
-    async agregaevidenciafotografica(evidenciaFotografica:EvidenciaFotografica):Promise<EvidenciaFotografica>{
-        const nuevaEvidenciaFotografica = new EvidenciaFotografica()
-        nuevaEvidenciaFotografica.descripcionTrabajos ="haber",
-        nuevaEvidenciaFotografica.partida="haber"
-        nuevaEvidenciaFotografica.urlFoto="haber"
-        const posicion = 1
-        console.log("der")
+    async agregaevidenciafotografica(
+            evidenciaFotografica:any,
+            
+    ):Promise<EvidenciaFotograficaDto>{
+        const nuevaEvidenciaFotografica = new EvidenciaFotograficaDto()
+        nuevaEvidenciaFotografica.descripcionTrabajos =evidenciaFotografica.descripcionTrabajos;
+        nuevaEvidenciaFotografica.partida=evidenciaFotografica.partida;
+        nuevaEvidenciaFotografica.urlFoto=evidenciaFotografica.urlFoto;
+        
+        
+        /*
+            { <query conditions> },
+            { <update operator>: { "<array>.$[<identifier>]" : value } },
+            { arrayFilters: [ { <identifier>: <condition> } ] }
+        */
 
         
         return await this.valorizacionModel
             .findOneAndUpdate(
-                {obraId:"123asd"},
+                {"obraId":evidenciaFotografica.obraId},
                 {
-                    /*$push:{
-                        "periodos.panelFotografico":nuevaEvidenciaFotografica//"periodos.0.panelFotografico":nuevaEvidenciaFotografica->funciona
-                    }*/
                     
                     $push:{
-                        "periodos":{
-                            $position:0,
-                            "panelFotografico":nuevaEvidenciaFotografica
-                        }
-                    } 
-                      
+                        "periodos.$[periodo].panelFotografico":{
+                            $each:[nuevaEvidenciaFotografica],
+                            $position:0
 
+                        }
+                        
+                    }
                 },
-                
+                {
+                    arrayFilters:[{"periodo.periodoMes":evidenciaFotografica.periodoMes}]
+                }
             )
-                
     }
-    
+    async listavalorizacionObraId(obraId:string):Promise<Valorizacion>{
+        return await this.valorizacionModel.findOne({"obraId":obraId}).exec()
+
+    }
 }
     
