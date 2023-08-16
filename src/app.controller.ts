@@ -11,11 +11,12 @@ export class AppController {
     return this.appService.getHello();
   }
   @Get("url")
-  getUrl(@Req() req:Request): void {
+  getUrl(@Req() req:Request): any {
     const protocol = req.protocol;
     const host = req.get("Host");
     const originUrl = req.originalUrl;
     const fullUrl = protocol + host + originUrl;
-    console.log(fullUrl);
+    console.log(`la ruta completa es:${fullUrl}`);
+    return fullUrl
   }
 }
