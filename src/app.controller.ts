@@ -14,9 +14,14 @@ export class AppController {
   getUrl(@Req() req:Request): any {
     const protocol = req.protocol;
     const host = req.get("Host");
+    const port = req.get('Port')
     const originUrl = req.originalUrl;
     const fullUrl = protocol + host + originUrl;
     console.log(`la ruta completa es:${fullUrl}`);
-    return fullUrl
+    return {
+      "ruta":fullUrl,
+      "puerto":port,
+      "otropuerto":process.env.PORT
+    }
   }
 }
