@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import mongoose, { Model, Types } from "mongoose";
+import { Prop, SchemaFactory,Schema } from "@nestjs/mongoose";
+import mongoose, { Model,  SchemaTypes,  Types } from "mongoose";
 import {Type} from 'class-transformer'
 
 import { UbicacionGeografica, Propietario, Contratista, Residente, Supervisor, Ejecucion, Inversion, Otros } from "../entities/obra.entity";
@@ -146,8 +146,8 @@ export type OtrosModel = Model<OtrosSchema>
 
 @Schema()
 export class ObraSchema {
-    @Prop()
-    obraId:string;
+    @Prop({required: true, unique: true, type: mongoose.Schema.Types.ObjectId })
+    obraId:mongoose.Schema.Types.ObjectId;
     @Prop()
     usuarioId:string
     

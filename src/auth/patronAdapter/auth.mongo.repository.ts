@@ -12,17 +12,17 @@ export class AuthMongoRepository implements IAuthRepository{
     constructor(
         @InjectModel(AuthEntity.name) private authModel:AuthModel
     ){}
-    lista(): Promise<AuthEntity[]> {
+    lista(): Promise<any[]> {
         return this.authModel.find({}).exec()
     }
-    findOne(entityFilterQuery: FilterQuery<AuthFindOne>, projection?: Record<string, unknown>): Promise<AuthEntity> {
+    findOne(entityFilterQuery: FilterQuery<AuthFindOne>, projection?: Record<string, unknown>): Promise<any> {
         return this.authModel.findOne( entityFilterQuery,{
             _id: 0,
             __v: 0,
             ...projection
         }).exec()
     }
-    async register(registra: AuthDto): Promise<AuthEntity> {
+    async register(registra: AuthDto): Promise<any> {
         const nuevoUsuario = new AuthEntity()
         nuevoUsuario.usuarioId = randomUUID()
         nuevoUsuario.email = registra.email;
@@ -34,7 +34,7 @@ export class AuthMongoRepository implements IAuthRepository{
     //busca por {userId}
     async login(
         entityFilterQuery: FilterQuery<AuthEntity>,
-        projection?: Record<string, unknown>): Promise<AuthEntity> {
+        projection?: Record<string, unknown>): Promise<any> {
         return this.authModel.findOne( entityFilterQuery,{
             _id: 0,
             __v: 0,

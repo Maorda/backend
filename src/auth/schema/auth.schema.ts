@@ -1,11 +1,11 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
-import {  Document, Model } from 'mongoose'
+import mongoose, {  Document, Model } from 'mongoose'
 
 
 @Schema()
 class AuthSchema {
-    @Prop()
-    usuarioId:string;
+    @Prop({required: true, unique: true, type: mongoose.Schema.Types.ObjectId})
+    usuarioId: mongoose.Schema.Types.ObjectId;
     @Prop()
     email:string;
     @Prop()

@@ -22,7 +22,6 @@ export class ObraController {
     async createObra(@Body() creaObraDto: any): Promise<any> {
         console.log(creaObraDto)
         
-        
         return this.obraService.creaObra(creaObraDto)
         
     }

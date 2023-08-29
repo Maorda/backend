@@ -1,5 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, UpdateQuery } from 'mongoose';
+import * as mongoose from 'mongoose'
 import { randomUUID } from 'node:crypto';
 import { CreaObraDto } from '../dtos/crud.obra';
 import { Obra } from '../entities/obra.entity';
@@ -10,9 +11,9 @@ export class ObraMongoRepository implements IObraRepository{
     constructor(
         @InjectModel(Obra.name) private obraModel:ObraModel
     ){}
-    async creaObra(creaObraDto: CreaObraDto): Promise<Obra> {
+    async creaObra(creaObraDto: CreaObraDto): Promise<any> {
         const nuevaObra = new Obra();
-        nuevaObra.obraId = randomUUID();
+        nuevaObra.obraId = new mongoose.Types.ObjectId().toString() ;
         nuevaObra.usuarioId = creaObraDto.usuarioId;
         
         nuevaObra.contratista = creaObraDto.contratista;
@@ -29,7 +30,7 @@ export class ObraMongoRepository implements IObraRepository{
     }
     async buscaById(
         entityFilterQuery: FilterQuery<Obra>,
-        projection?: Record<string, unknown>): Promise<Obra> {
+        projection?: Record<string, unknown>): Promise<any> {
         return this.obraModel.findOne( entityFilterQuery,{
             _id: 0,
             __v: 0,
@@ -47,7 +48,7 @@ export class ObraMongoRepository implements IObraRepository{
               new: true 
             })
     }
-    async listaObras(entityFilterQuery: FilterQuery<Obra>): Promise<Obra[]> {
+    async listaObras(entityFilterQuery: FilterQuery<Obra>): Promise<any[]> {
         return this.obraModel.find(entityFilterQuery).exec()
     }
     

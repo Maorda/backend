@@ -4,15 +4,15 @@ import { Obra } from "../entities/obra.entity"
 
 export const  IOBRA_REPOSITORY = 'IObraRepository'
 export interface IObraRepository{
-    creaObra(creaObraDto:CreaObraDto):Promise<Obra>
+    creaObra(creaObraDto:CreaObraDto):Promise<any>
     buscaById(
         entityFilterQuery: FilterQuery<Obra>,
         projection?: Record<string, unknown>
-    ):Promise<Obra>
+    ):Promise<any>
     actualizaObra(
         entityFilterQuery: FilterQuery<Obra>,
         updateEntityData: UpdateQuery<unknown>
-    ):Promise<Obra>
-    listaObras(entityFilterQuery: FilterQuery<Obra>):Promise<Obra[] | null> 
+    ):Promise<any>
+    listaObras(entityFilterQuery: FilterQuery<Obra>):Promise<any[] | null> 
 
 }

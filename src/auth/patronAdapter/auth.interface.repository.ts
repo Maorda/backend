@@ -6,16 +6,16 @@ import { AuthEntity, AuthFindOne } from "../entity/auth.entity";
 
 export const  IAUTH_REPOSITORY = 'IAuthRepository'
 export interface IAuthRepository{
-    register(creaUsuarioDto:AuthDto):Promise<AuthEntity>
+    register(creaUsuarioDto:AuthDto):Promise<any>
     login(
         entityFilterQuery: FilterQuery<AuthEntity>,
         projection?: Record<string, unknown>
-    ):Promise<AuthEntity>
+    ):Promise<any>
     findOne(
         entityFilterQuery: FilterQuery<AuthFindOne>,
         projection?: Record<string, unknown>
     ):Promise<AuthEntity>
-    lista():Promise<AuthEntity[] | null>
+    lista():Promise<any[] | null>
 
     
 }
