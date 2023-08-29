@@ -1,5 +1,5 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
-import {  Document, Model, ObjectId } from 'mongoose'
+import mongoose, {  Document, Model, ObjectId } from 'mongoose'
 import { EvidenciaFotografica, Periodo, Valorizacion } from "../entities/valorizacion.entity";
 
 @Schema()
@@ -37,8 +37,8 @@ export const PERIODO_SCHEMA = SchemaFactory.createForClass(PeriodoSchema)
 
 @Schema()
 export class ValorizacionSchema{
-    @Prop()
-    obraId:string;
+    @Prop({type:mongoose.Schema.Types.ObjectId})
+    obraId:mongoose.Schema.Types.ObjectId;
 
     @Prop([Periodo])
     periodos:Periodo[]

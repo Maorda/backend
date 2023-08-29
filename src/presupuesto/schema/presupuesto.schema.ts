@@ -24,8 +24,8 @@ export const PARTIDA_SCHEMA = SchemaFactory.createForClass(PartidaSchema)
 
 @Schema()
 export class PresupuestoSchema{
-    @Prop()
-    obraId:string;
+    @Prop({type:mongoose.Schema.Types.ObjectId})
+    obraId:mongoose.Schema.Types.ObjectId;
     
     @Prop()
     presupuestoId:string;

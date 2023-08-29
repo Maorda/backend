@@ -13,3 +13,7 @@ export class EvidenciaFotograficaDto {
     urlFoto:string;
 
 }
+export class Agregaevidenciafotografica{
+    obraId:string;
+    periodoMes:string
+}

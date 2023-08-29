@@ -29,7 +29,8 @@ export class ValorizacionController {
     }
 
     @Post('creavalorizacion')
-    async createValorizacion(valorizacion:any){ 
+    async createValorizacion(@Body() valorizacion:any){ 
+        
         return await this.valorizacion.creaValorizacion(valorizacion)
     }
 }

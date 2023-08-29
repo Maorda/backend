@@ -38,7 +38,7 @@ export class PresupuestoMongoRepository implements IPresupuestoRepository{
        
   
     }
-    async buscaById(entityFilterQuery: FilterQuery<Presupuesto>, projection?: Record<string, unknown>): Promise<Presupuesto> {
+    async buscaById(entityFilterQuery: FilterQuery<Presupuesto>, projection?: Record<string, unknown>): Promise<any> {
         console.log(entityFilterQuery)
         return this.presupuestoModel.findOne( entityFilterQuery,{
             _id: 0,
@@ -55,7 +55,7 @@ export class PresupuestoMongoRepository implements IPresupuestoRepository{
               new: true 
             })
     }
-    listaPresupuestosByObraId(entityFilterQuery: FilterQuery<Presupuesto>): Promise<Presupuesto[]> {
+    listaPresupuestosByObraId(entityFilterQuery: FilterQuery<Presupuesto>): Promise<any[]> {
         return this.presupuestoModel.find(entityFilterQuery).exec()
     }
     

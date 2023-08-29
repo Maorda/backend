@@ -12,7 +12,7 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
     constructor(
         @InjectModel(Valorizacion.name) private valorizacionModel:ValorizacionModel 
     ){}
-    async creaValorizacion(creaValorizacionDto: CreateValorizacionDto): Promise<Valorizacion> {
+    async creaValorizacion(creaValorizacionDto: CreateValorizacionDto): Promise<any> {
        const nuevaValorizacion = new Valorizacion();
        nuevaValorizacion.obraId = creaValorizacionDto.obraId
        nuevaValorizacion.periodos = creaValorizacionDto.periodos
@@ -21,13 +21,14 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
        
        if(otropresupuesto === null || otropresupuesto.length === 0){
         return this.valorizacionModel.create(nuevaValorizacion)
-       }else{
+       }
+       else{
         return await this.valorizacionModel.
             findOneAndUpdate(
-                {obraId:nuevaValorizacion.obraId},
+                {obraId:nuevaValorizacion.obraId},//obra encontrada
                 {
                     $push:{
-                    "periodos":nuevaValorizacion.periodos
+                    "periodos":nuevaValorizacion.periodos[0]
                     }
                 },
                 {
@@ -37,7 +38,7 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
 
        }
     }
-    async buscaById(entityFilterQuery: FilterQuery<Valorizacion>, projection?: Record<string, unknown>): Promise<Valorizacion> {
+    async buscaById(entityFilterQuery: FilterQuery<Valorizacion>, projection?: Record<string, unknown>): Promise<any> {
         return this.valorizacionModel.findOne( entityFilterQuery,{
             _id: 0,
             __v: 0,
@@ -47,7 +48,7 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
     actualizaValorizacion(entityFilterQuery: FilterQuery<Valorizacion>, updateEntityData: UpdateQuery<unknown>): Promise<Valorizacion> {
         throw new Error("Method not implemented.");
     }
-    listaValorizaciones(entityFilterQuery: FilterQuery<Valorizacion>): Promise<Valorizacion[]> {
+    listaValorizaciones(entityFilterQuery: FilterQuery<Valorizacion>): Promise<any[]> {
         return this.valorizacionModel.find(entityFilterQuery).exec()
     }
     async agregaevidenciafotografica(
@@ -65,8 +66,7 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
             { <update operator>: { "<array>.$[<identifier>]" : value } },
             { arrayFilters: [ { <identifier>: <condition> } ] }
         */
-
-        
+       
         return await this.valorizacionModel
             .findOneAndUpdate(
                 {"obraId":evidenciaFotografica.obraId},
@@ -86,7 +86,7 @@ export class ValorizacionMongoRepository implements IValorizacionRepository{
                 }
             )
     }
-    async listavalorizacionObraId(obraId:string):Promise<Valorizacion>{
+    async listavalorizacionObraId(obraId:string):Promise<any>{
         return await this.valorizacionModel.findOne({"obraId":obraId}).exec()
 
     }
