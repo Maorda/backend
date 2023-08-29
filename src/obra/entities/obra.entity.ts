@@ -29,7 +29,7 @@ export class Supervisor{
 export class Ejecucion{
     obra:string;		
     nro_ajudicacion	:string;	
-    proceso_selección:string;		
+    proceso_seleccion:string;		
     modalidad	:string;	
     sistema_Contrato:string;		
     nro_contrato	:string;	

@@ -10,6 +10,7 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ObraModule } from './obra/obra.module';
 import { PresupuestoModule } from './presupuesto/presupuesto.module';
 import { ValorizacionModule } from './valorizacion/valorizacion.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -30,10 +31,11 @@ import { ValorizacionModule } from './valorizacion/valorizacion.module';
       }, 
     }),
     //modulos de negocio
-    UsuarioModule,
+    AuthModule,
     ObraModule,
     PresupuestoModule,
     ValorizacionModule,
+    
   ],
   //modulos de negocio
   controllers: [AppController],

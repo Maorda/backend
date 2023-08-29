@@ -39,6 +39,7 @@ export class PresupuestoMongoRepository implements IPresupuestoRepository{
   
     }
     async buscaById(entityFilterQuery: FilterQuery<Presupuesto>, projection?: Record<string, unknown>): Promise<Presupuesto> {
+        console.log(entityFilterQuery)
         return this.presupuestoModel.findOne( entityFilterQuery,{
             _id: 0,
             __v: 0,

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import { CreaPresupuestoDto } from '../dtos/crud.presupuestoDto';
 import { Presupuesto } from '../entities/presupuesto.entity';
@@ -8,41 +8,25 @@ export class PresupuestoController {
     constructor(
         private presupuestoService:PresupuestoService
     ){}
-    /*@Get(':presupuestoId')
-    async getPresupuesto(@Param('presupuestoId') presupuestoId: string): Promise<Presupuesto> {
-      return this.presupuestoService.buscaById(presupuestoId);
+    @Get(':obraId')
+    async getPresupuestoByObraId(@Param('obraId') obraId: string): Promise<Presupuesto> {
+      return this.presupuestoService.buscaById(obraId);
     }
-  
+  /*
     @Get()
     async getPresuestos(): Promise<Presupuesto[]> {
         return this.presupuestoService.listaPresupuestos();
     }*/
   
     @Post('creapresupuesto')
-    async createPresupuesto(@Body() creaPresupuestoDto: Presupuesto)
+    async createPresupuesto(@Body() creaPresupuestoDto: any)
     : Promise<Presupuesto> {
         
         const nuevoPresupuesto:CreaPresupuestoDto = {
             presupuestoId:randomUUID(),
-            obraId:"eba77b76-dd6e-4fde-bf0b-1444050155b2",
-	        partidas: [
-		        {
-			        partidaId:"numero que viene del archivo excel",
-    	            descripcion:"string",
-    	            u_medida:"string",
-   	                metrado:50,
-    	            p_unitario:20,
-    	            parcial:1200
-		        },
-                {
-			        partidaId:"string;//numero que viene del archivo excel",
-    	            descripcion:"string",
-    	            u_medida:"string",
-   	                metrado:50.26,
-    	            p_unitario:20.03,
-    	            parcial:1200.26
-		        }
-	        ]}
+            obraId:creaPresupuestoDto.obraId,
+	        partidas: creaPresupuestoDto.partidas 
+        }
             creaPresupuestoDto = nuevoPresupuesto
 
         return this.presupuestoService.creaPresupuesto(creaPresupuestoDto)

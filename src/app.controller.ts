@@ -21,7 +21,8 @@ export class AppController {
     return {
       "ruta":fullUrl,
       "puerto":port,
-      "otropuerto":process.env.PORT
+      "otropuerto":process.env.PORT,
+      "ip":req.socket.remoteAddress
     }
   }
 }
