@@ -62,8 +62,9 @@ export class Obra {
     propietario:Propietario;
     contratista:Contratista;
     residente:Residente;
-    supervisor:Supervisor
-    ejecucion:Ejecucion
-    inversion:Inversion
-    otros:Otros
+    supervisor:Supervisor;
+    ejecucion:Ejecucion;
+    inversion:Inversion;
+    otros:Otros;
+    
 }

@@ -1,7 +1,6 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, UpdateQuery } from 'mongoose';
 import * as mongoose from 'mongoose'
-import { randomUUID } from 'node:crypto';
 import { CreaObraDto } from '../dtos/crud.obra';
 import { Obra } from '../entities/obra.entity';
 import { ObraModel } from '../schema/obra.schema';

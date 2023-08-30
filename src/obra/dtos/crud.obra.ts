@@ -7,10 +7,11 @@ export class CreaObraDto{
     propietario:Propietario;//la entidad que pide hacer la obra
     contratista:Contratista;
     residente:Residente;
-    supervisor:Supervisor
-    ejecucion:Ejecucion
-    inversion:Inversion
-    otros:Otros
+    supervisor:Supervisor;
+    ejecucion:Ejecucion;
+    inversion:Inversion;
+    otros:Otros;
+    
 }
 export class listaObrasDto{}
 export class ActualizaObraDto{
