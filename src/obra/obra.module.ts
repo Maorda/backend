@@ -1,5 +1,10 @@
 import { Module } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
+import { LoggingInterceptor } from 'src/auth/services/interceptortoken.service';
+import { JwtauthguardService } from 'src/auth/services/jwtauthguard.service';
+import { JwtstrategyService } from 'src/auth/services/jwtstrategy.service';
+import { PictureInterceptor } from 'src/valorizacion/services/pictureInterceptor';
 import { ObraController } from './controller/obra.controller';
 import { Obra } from './entities/obra.entity';
 import { IOBRA_REPOSITORY } from './patronAdapter/obra.interface';
@@ -15,7 +20,8 @@ import { ObraService } from './services/obra.servicio';
       }
     ])
   ],
-  providers:[ObraService,{provide:IOBRA_REPOSITORY,useClass:ObraMongoRepository}],
+  providers:[ObraService,{provide:IOBRA_REPOSITORY,useClass:ObraMongoRepository},
+    JwtstrategyService, JwtauthguardService, LoggingInterceptor,PictureInterceptor,JwtService],
   controllers: [ObraController]
 })
 export class ObraModule {}

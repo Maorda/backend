@@ -13,12 +13,12 @@ export class UsuarioMongoRepository implements IUsuarioRepository{
     constructor(
         @InjectModel(Usuario.name) private usuarioModel:UsuarioModel
     ){}
-    listaUsuarios(entityFilterQuery: FilterQuery<Usuario>): Promise<Usuario[] | null > {
+    listaUsuarios(entityFilterQuery: FilterQuery<Usuario>): Promise<any[] | null > {
         return this.usuarioModel.find(entityFilterQuery).exec()
     }
-    async creaUsuario(creaUsuarioDto: CreaUsuarioDto): Promise<Usuario> {
+    async creaUsuario(creaUsuarioDto: CreaUsuarioDto): Promise<any> {
         const nuevoUsuario = new Usuario()
-        nuevoUsuario.usuarioId = randomUUID()
+        
         nuevoUsuario.email = creaUsuarioDto.email;
         nuevoUsuario.password = creaUsuarioDto.password
         
@@ -28,7 +28,7 @@ export class UsuarioMongoRepository implements IUsuarioRepository{
     //busca por {userId}
     async buscaById(
         entityFilterQuery: FilterQuery<Usuario>,
-        projection?: Record<string, unknown>): Promise<Usuario> {
+        projection?: Record<string, unknown>): Promise<any> {
         return this.usuarioModel.findOne( entityFilterQuery,{
             _id: 0,
             __v: 0,

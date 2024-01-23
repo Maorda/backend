@@ -9,7 +9,7 @@ export class UsuarioController {
         private usuarioservice:UsuarioService
     ){}
     //rutas staticas
-    @Get("listausuarios")
+    @Get("lista")
     async getUsers(): Promise<Usuario[]> {
         return this.usuarioservice.listaUsuarios();
     }
@@ -23,8 +23,11 @@ export class UsuarioController {
         return "adicional"
     }
     //rutas dinamicas
-    @Get(':usuarioId')
-    async getUser(@Param('usuarioId') userId: string): Promise<Usuario> {
+    @Get(':login')
+    async getUser(@Param('login') userId: string): Promise<Usuario> {
+        console.log({
+            userId
+        })
       return this.usuarioservice.buscaById(userId);
     }
     
@@ -32,12 +35,12 @@ export class UsuarioController {
     @Post('creausuario')
     async createUser(@Body() creaUsuarioDto: CreaUsuarioDto): Promise<Usuario> {
         
-        /*inicio hardcode */
+        //inicio hardcode 
         const nuevoUsuario:CreaUsuarioDto = {
             email:"myemail@gmail.com",
             password:"123"
         }
-        creaUsuarioDto = nuevoUsuario
+        //creaUsuarioDto = nuevoUsuario
         //fin
 
         return this.usuarioservice.creaUsuario(creaUsuarioDto)

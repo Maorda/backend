@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import  * as path from 'path';
 export const parametros ={
+    obra:{
+        templates:{
+            base:path.join(process.cwd(),'src/assets/'),
+            configuracion:'plantilla_valorizacion.xlsx'
+        }
+
+    },
         valorizacion:{
             hojasXLS:{
                 valorizacion_calculos:{

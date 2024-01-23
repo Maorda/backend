@@ -16,6 +16,6 @@ export interface IAuthRepository{
         projection?: Record<string, unknown>
     ):Promise<AuthEntity>
     lista():Promise<any[] | null>
-
+    
     
 }

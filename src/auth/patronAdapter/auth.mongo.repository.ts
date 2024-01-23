@@ -1,17 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel, } from "@nestjs/mongoose";
-import {  FilterQuery, UpdateQuery } from 'mongoose';
+import mongoose,{  FilterQuery, UpdateQuery } from 'mongoose';
 import { randomUUID } from 'node:crypto';
+import { Usuario } from "src/usuario/entities/entidad.usuario";
 import { AuthDto } from "../dtos/auth.dto";
 import { AuthEntity, AuthFindOne } from "../entity/auth.entity";
-import { AuthModel } from "../schema/auth.schema";
+import { AuthModel} from "../schema/auth.schema";
 import { IAuthRepository } from "./auth.interface.repository";
+
 
 @Injectable()
 export class AuthMongoRepository implements IAuthRepository{
     constructor(
         @InjectModel(AuthEntity.name) private authModel:AuthModel
     ){}
+    
     lista(): Promise<any[]> {
         return this.authModel.find({}).exec()
     }
@@ -23,15 +26,14 @@ export class AuthMongoRepository implements IAuthRepository{
         }).exec()
     }
     async register(registra: AuthDto): Promise<any> {
-        const nuevoUsuario = new AuthEntity()
-        nuevoUsuario.usuarioId = randomUUID()
+        const nuevoUsuario = new this.authModel()//crea o general el ObjectId ;_id
         nuevoUsuario.email = registra.email;
         nuevoUsuario.password = registra.password
+        nuevoUsuario.usuarioId = nuevoUsuario._id
         
         return await new this.authModel(nuevoUsuario).save()
     }
-    //userId: string
-    //busca por {userId}
+    
     async login(
         entityFilterQuery: FilterQuery<AuthEntity>,
         projection?: Record<string, unknown>): Promise<any> {
@@ -42,7 +44,5 @@ export class AuthMongoRepository implements IAuthRepository{
         }).exec()
           
     }
-    //(userId: string, userUpdates: UpdateUserDto) son los parametros
-    //{ userId }, userUpdates, es o que ingresa es decir entityfilterquery
        
 }

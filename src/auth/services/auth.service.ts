@@ -1,4 +1,4 @@
-import { ConflictException, HttpException, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt'
 import * as bcrypt from 'bcrypt'
 import { AuthDto } from '../dtos/auth.dto';
@@ -55,7 +55,7 @@ export class AuthService {
       const {email} = userObjectCreate
         const usrExist = await this.authRepository.findOne({email})
         if(usrExist){
-            throw new ConflictException("email existe")
+            throw new ConflictException("Usuario Registrado")
         }
       
       const {password} = userObjectCreate;
@@ -68,6 +68,13 @@ export class AuthService {
     }
     async lista(){
       return this.authRepository.lista()
+    }
+    
+    async buscarUsuario(token:string){
+      
+      return this.jwtService.decode(token)
+      
+
     }
     
     

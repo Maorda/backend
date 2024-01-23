@@ -1,9 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
+import { useContainer } from 'class-validator';
 
 import * as fs from 'fs'
 import { ValidationPipe } from '@nestjs/common';
+
 
 const httpsOptions ={
   key: fs.readFileSync('./private.pem'),
@@ -15,6 +16,7 @@ async function bootstrap() {
     ,{
     httpsOptions
     }
+    
   );
 /**
    * configura el cors correctamente desde el backend
@@ -39,6 +41,8 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({whitelist:true,forbidNonWhitelisted:true})
   )
+ 
+  useContainer(app.select(AppModule), {fallbackOnErrors: true}); 
   await app.listen(3033,'192.168.1.86',()=>{//ip de la maquiandonde esta el backend aplicativo, se usa ipconfig
     console.log(`on port: ${3033}`)
   });

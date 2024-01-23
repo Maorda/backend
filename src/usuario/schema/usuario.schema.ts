@@ -1,10 +1,10 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
-import {  Document, Model } from 'mongoose'
+import mongoose, {  Document, Model } from 'mongoose'
 
 
 @Schema()
 class UsuarioSchema {
-    @Prop()
+    @Prop({type:mongoose.Schema.Types.ObjectId})
     usuarioId:string;
     @Prop()
     email:string;

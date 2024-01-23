@@ -4,15 +4,11 @@ export class EvidenciaFotografica{
     urlFoto:string;
 }
 export class Periodo{
-    periodoSeleccionado:string;
-    periodoMes:string;
-    periodoRangoEtiquetas:string;
-    sumaValorizacionActual:number;
-    sumaPorcentajeAcumuladoActual:number;
-    sumaCostoDirectoActual:number;
+    mesSeleccionado:string; 
     panelFotografico:EvidenciaFotografica[]
 
 }
+
 export class Valorizacion{
     obraId:string;
     periodos:Periodo[];
